@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
 *{
     margin: 0;
     padding: 0;
@@ -9,6 +10,15 @@ a{
     text-decoration: none;
 }
 
+p{
+    font-size: 1.7em;
+}
+span{
+  color: #29d9d5;
+}
+h1{
+    font-size: 35px;
+}
 html{
     font-size: 62.5%;
     scroll-behavior: smooth;
@@ -23,6 +33,14 @@ html{
 body{
     background-color: #ffffff;
 }
+
+.card-wrapper{
+  max-width: 1100px;
+  margin: 0 60px 35px;
+  padding: 20px 10px;
+  overflow: hidden;
+}
+
 section{
     margin-top: 50px;
 }
@@ -58,12 +76,14 @@ header .logo a span{
     justify-content: end;
     
 }
-.menu li a:hover{
-    color: #29d9d5;
-}
+
 .menu li a {
     color: #fff;
-    font-size: 14px;   
+    font-size: 50px;
+}
+.menu li svg{
+  height: 30px;
+  width: 30px;
 }
 
 /* home accueil CSS */
@@ -78,7 +98,7 @@ header .logo a span{
     height: calc(50vh - -50px);
 }
 .accueil .margin h1{
-    font-size: 30px;
+    font-size: 40px;
     
 }
 
@@ -1772,6 +1792,160 @@ span.flatpickr-weekday {
   background: #26b3b0;
 }
 
+/* Destination populaire */
+
+.destination{
+  padding: 130px 20px;
+}
+
+.destination .slide{
+  display: flex;
+  padding: 130px 20px;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin-top: -10em;
+}
+
+.card-list .card-item{
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-list .card-item .card-link{
+  user-select: none;
+  display: block;
+  background: #dbdbdb;
+  padding: 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  border: 2px solid transparent;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+  transition: 0.2s ease;
+}
+
+.card-list .card-item .card-link h2{
+  color: #000;
+}
+
+.card-list .card-item .card-link:hover{
+  border-color: #29d9d5;
+}
+
+.card-list .card-link .badge{
+  font-size: 25px;
+  padding: 8px 16px;
+  margin: 16px 0 18px;
+  font-weight: 500;
+  background: #222;
+  color: #fff;
+  width: fit-content;
+  border-radius: 50px;
+}
+
+.card-list .card-link .card-image{
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.card-list .card-link .card-title{
+  font-size: 1.19rem;
+  color: #000;
+  font-weight: 600;
+
+}
+
+.card-list .card-link .card-button{
+  height: 35px;
+  width: 35px;
+  color: #29d9d5;
+  border-radius: 50%;
+  margin: 30px 0 5px;
+  background: none;
+  border: 2px solid #29d9d5;
+  transform: rotate(-45deg);
+  transition: 0.4s ease;
+}
+
+.card-list .card-link:hover .card-button{
+  color: #fff;
+  background: #29d9d5;
+}
+
+.card-list .card-link .price{
+  margin-top: -2em;
+  color: #222;
+  font-size: 1.9em;
+  font-weight: 600;
+}
+
+.card-list .card-link .price s{
+  color: #0000008d;
+}
+
+.card-wrapper .swiper-pagination-bullet{
+  height: 13px;
+  width: 13px;
+  opacity: 0.5;
+  background: #29d9d5;
+}
+
+.card-wrapper .swiper-pagination-bullet-active{
+  opacity: 1;
+
+}
+
+.offres{
+  margin-top: -0.5em;
+}
+
+.container2{
+  margin-bottom: -200em;
+}
+
+.container2 .row{
+  justify-content: center;
+  align-items: center;
+  color: #000;
+}
+
+.container2 .row a{
+  color: #000;
+}
+
+.more {
+  justify-content: center;
+  align-items: center;
+  background-color: #29d9d5;
+  color: #ffffff;
+  font-size: 13px;
+  margin-left: 5em;
+  border: 2px solid #29d9d5;
+  padding: 5px 20px;
+  transition: 0.5s;
+  font-weight: bolder;
+
+
+}
+.more:hover {
+  background-color: #29d9d5;
+  color: #222;
+
+}
+
+.container .row{
+  margin-top: 10em;
+}
+.container .row .info1{
+  text-align: justify;
+}
+
+.container .row .info2 img{
+  margin-bottom: 10em;
+}
 @media screen and (max-width: 992px) {
   .s002 form legend {
     font-size: 50px;
@@ -1821,18 +1995,22 @@ span.flatpickr-weekday {
     text-align: center;
     margin-bottom: 0;
   }
+  .destination{
+    margin-top: 17em;
+  }
 }
 
 
 
-@media(max-width: 991px){
+@media(max-width: 992px){
     .accueil{
         padding: 70px 30px;
     }
-}
-
-@media(max-width: 992px){
     .s002 form .inner-form .input-field.fifth-wrap {
         margin-bottom: 1.5em;
     }
+    .destination h1{
+        font-size: 30px;
+    }
 }
+
