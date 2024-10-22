@@ -40,7 +40,7 @@ export default function Search({ setJourney }) {
           sameLocation: true,
           done: false
         }));
-        return; // Ne pas soumettre le formulaire
+        return; 
       } else {
         setError((prevError) => ({
           ...prevError,
@@ -93,7 +93,6 @@ export default function Search({ setJourney }) {
         <div className="inner-form">
           <div className="input-field first-wrap">
             <div className="icon-wrap">
-              {/* Icone SVG */}
             </div>
             <select id="depart" value={selectedDepart} onChange={handleChangeDepart}>
               <option value="">Départ</option>
@@ -104,7 +103,6 @@ export default function Search({ setJourney }) {
           </div>
           <div className="input-field first-wrap">
             <div className="icon-wrap">
-              {/* Icone SVG */}
             </div>
             <select id="destination" value={selectedDestination} onChange={handleChangeDestination}>
               <option value="">Destination</option>
@@ -115,7 +113,6 @@ export default function Search({ setJourney }) {
           </div>
           <div className="input-field second-wrap">
             <div className="icon-wrap">
-              {/* Icone SVG */}
             </div>
             <input className="datepicker" id="depart" type="date" 
               value={date} onChange={(e) => setDate(e.target.value)} />
