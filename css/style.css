@@ -1,0 +1,70 @@
+.ftco-footer-social{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 30px;
+  list-style: none;
+  letter-spacing: 50px;
+  margin: 0;
+  padding: 0;
+}
+
+.ftco-footer-social li {
+  justify-content: center;
+  align-items: center;
+  display: inline; /* Affiche les éléments en ligne */
+  margin-left: 10px; /* Espace entre les icônes */
+  list-style: none;
+  border: 0;
+}
+
+.ftco-footer-social a {
+
+  text-decoration: none; /* Enlève le soulignement des liens */
+  border: none; /* Enlève le bord s'il y en a un */
+  background: none; /* Enlève le fond s'il y en a un */
+  color: inherit; /* Prend la couleur du texte par défaut */
+}
+
+/* Pour s'assurer qu'il n'y a pas de style par défaut */
+.ftco-footer-social a:focus,
+.ftco-footer-social a:hover {
+  outline: none; /* Enlève le contour lors du focus ou du survol */
+}
+/* Instructions */
+
+footer {
+  font-size: 10px;
+  padding: 5em 0; }
+
+.footer-07 {
+  background: #121212; }
+  .footer-07 a {
+    color: #000000; }
+  .footer-07 p {
+    color: rgba(255, 255, 255, 0.3); }
+  .footer-07 .footer-heading {
+    font-size: 30px;
+    color: #000000;
+    font-weight: 700;
+    margin-bottom: 30px; }
+    .footer-07 .footer-heading .logo {
+      color: #fff; }
+  .footer-07 .menu {
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px; }
+    .footer-07 .menu a {
+      color: rgba(255, 255, 255, 0.6);
+      margin: 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px; }
+  .footer-07 .ftco-footer-social li a {
+    background: transparent;
+ }
+.liste-train{
+  margin-top: 15em;
+}
+ #liste-vide p{
+  padding: 20px 60px;
+ }
