@@ -1,0 +1,120 @@
+header{
+    background-color: #222;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 50px;
+    padding: 0 5%;
+}
+header a {
+    text-decoration: none;
+   
+}
+.nav{
+    display: flex; /* la liste fera un rang */
+    align-items: center;
+    justify-content: center;
+}
+
+.nav li {
+    margin: 0 15px;
+    list-style-type: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 1px;
+    transition: all 0.4s ease;
+
+}
+
+
+.nav li:hover {
+    color:#29d9d5 ;
+    cursor: pointer;
+    padding-right: 7px;
+}
+
+.logo img {
+    width: 30%;
+    height: 30%;
+    border-radius: 20px;
+    margin: 1px;
+}
+.toggle_btn {
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+    display: none;
+}
+.btn-logout{
+    display: inline-block;
+    background-color: #29d9d5;
+    padding: 10px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+
+}
+.btn-logout:hover {
+    color: #29d9d5;
+    background-color: #fff;
+    padding-right: 17px;
+    
+}
+
+
+/*DROPDOWN MENU*/
+.dropdown_menu{
+    display: none;
+    position: absolute;
+    top: 90px;
+    right: 2rem;
+    height: auto;
+    width: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(50px);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.dropdown_menu li{
+    padding: 0.7rem;
+    font-weight: 400;
+    color: #fff;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    width: 100%;
+
+}
+.dropdown_menu li:hover {
+    color:#29d9d5;
+    padding-left: 7px;
+    font-weight: bolder;
+}
+
+.dropdown_menu:hover :not(:hover){
+    color: #919191;
+}
+
+/*RESPONSIVE DESIGN */
+@media(max-width: 990px){
+    .nav-list{
+        display: none;
+    }
+    header .toggle_btn{
+        display: block;
+    }
+    .dropdown_menu{
+        display: block;
+    }
+    
+}
+@media(max-width: 570px){
+    .dropdown_menu{
+        left: 2rem;
+        width: unset;
+    }
+}

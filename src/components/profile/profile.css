@@ -1,0 +1,12 @@
+.profile-header {
+    padding:  4rem 0;
+    
+    height: 100%;
+    
+}
+.profile-header img {
+    border-radius: 50%;
+    max-width: 150px;
+    height: 150px;
+    object-fit: cover;
+}

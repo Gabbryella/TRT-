@@ -1,0 +1,14 @@
+.canceled {
+    color: red;
+    font-weight: bold;
+}
+
+.confirmed {
+    color: rgb(63, 219, 63);
+    font-weight: bold;
+    
+}
+
+.card-confiremd{
+    border-color: rgb(63, 219, 63);
+}

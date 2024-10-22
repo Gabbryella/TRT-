@@ -1,0 +1,25 @@
+.card-body {
+    margin-bottom: 30px;
+}
+
+.card-body-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+blockquote {
+    border-left: 4px solid #007bff;
+    padding-left: 20px;
+    margin: 20px 0;
+}
+
+.row .text-center .mb-5 .col h2 {
+    margin-bottom: 20px;
+}
+.card-body-body {
+    margin: 10px;
+}
+
+.card-body-img-top {
+    border-radius: 5px;
+}
