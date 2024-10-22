@@ -1,39 +1,32 @@
-import "./journey.css"
+import "./journey.css";
 import { useEffect, useState, useContext } from "react";
-import axios from "axios"; // Assurez-vous d'importer axios
+import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
-import API_BASE_URL from "../../apiConfig"
+import API_BASE_URL from "../../apiConfig";
 
 export default function JourneyForm({ id }) {
-    const { selectedDepart, selectedDestination , getToken} = useContext(AuthContext);
-    const [depart, setDepart] = useState('')
-    const [destination, setDestination] = useState('')
+    const { selectedDepart, selectedDestination, getToken } = useContext(AuthContext);
+    const [depart, setDepart] = useState('');
+    const [destination, setDestination] = useState('');
     const [journey, setJourney] = useState({});
     const [train, setTrain] = useState({});
     const [carriageClass, setCarriageClass] = useState({});
-    const [error, setError] = useState({
-        canSubmit:false,
-        errorSubmit:false
-    })
+    const [error, setError] = useState({ canSubmit: false, errorSubmit: false });
     const [successMessage, setSuccessMessage] = useState(false);
-    const token = getToken()
+    const [loading, setLoading] = useState(false); // État pour le spinner
+    const token = getToken();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const journeyResponse = await axios.get(`${API_BASE_URL}/journey/${id}`);
                 setJourney(journeyResponse.data);
-
                 const trainResponse = await axios.get(`${API_BASE_URL}/train/${journeyResponse.data.train.train_id}`);
                 setTrain(trainResponse.data);
-                const DepartResponse = await axios.post(`${API_BASE_URL}/station/by_name/`,{
-                    "name":selectedDepart
-                })
-                setDepart(DepartResponse.data)
-                const DestinationResponse = await axios.post(`${API_BASE_URL}/station/by_name/`,{
-                    "name":selectedDestination
-                })
-                setDestination(DestinationResponse.data)
+                const DepartResponse = await axios.post(`${API_BASE_URL}/station/by_name/`, { "name": selectedDepart });
+                setDepart(DepartResponse.data);
+                const DestinationResponse = await axios.post(`${API_BASE_URL}/station/by_name/`, { "name": selectedDestination });
+                setDestination(DestinationResponse.data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des données :", error);
             }
@@ -43,46 +36,43 @@ export default function JourneyForm({ id }) {
     }, [id]);
 
     const handleClick = (carriage) => {
-        // Met à jour carriageClass avec les détails de la classe sélectionnée
         setCarriageClass(carriage);
     };
 
     const handleSubmit = (event) => {
-         event.preventDefault();
-        if (error.canSubmit){
-            axios.post(`${API_BASE_URL}/new-booking/`,{
-            "departure_station":depart.id,
-            "arrival_station":destination.id,
-            "train_journey":id,
-            "carriage_class":carriageClass.id,
-            "amount_paid":carriageClass.prices?.[0]?.price,
-            "ticket_number":1,
-        },
-            {
-                headers:{
-                    'Authorization':`Token ${token}`,
-                    'Content-Type':'application/json'
+        event.preventDefault();
+        if (error.canSubmit) {
+            setLoading(true); // Afficher le spinner
+            axios.post(`${API_BASE_URL}/new-booking/`, {
+                "departure_station": depart.id,
+                "arrival_station": destination.id,
+                "train_journey": id,
+                "carriage_class": carriageClass.id,
+                "amount_paid": carriageClass.prices?.[0]?.price,
+                "ticket_number": 1,
+            }, {
+                headers: {
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application/json'
                 }
             }).then((response) => {
                 if (response.status === 201) {
-                    console.log(response)
+                    console.log(response);
                     setSuccessMessage(true);
                     setTimeout(() => {
-                        setSuccessMessage(false); // Masquer le message après 10 secondes
+                        setSuccessMessage(false);
                     }, 10000);
                 }
             }).catch((error) => {
                 console.error("Erreur lors de la réservation :", error);
-                // Gérer les erreurs ici si nécessaire
+                setError({ ...error, errorSubmit: true });
+            }).finally(() => {
+                setLoading(false); // Masquer le spinner après la requête
             });
-        }else {
-            setError({
-                ...error,
-                errorSubmit:true,
-            })
+        } else {
+            setError({ ...error, errorSubmit: true });
         }
-       
-    }
+    };
 
     return (
         <>
@@ -90,12 +80,11 @@ export default function JourneyForm({ id }) {
                 <h1 className="text-center">Réservation de Tickets de Train</h1>
                 <div className="row">
                     {successMessage && (
-                                        <div className="alert alert-success alert-dismissible fade show" role="alert">
-                                        <strong>Felicitations</strong> Votre reservation a ete faite
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={() => setSuccessMessage(false)}></button>
-                                      </div>
-                                        
-                                    )}
+                        <div className="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Félicitations</strong> Votre réservation a été faite
+                            <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={() => setSuccessMessage(false)}></button>
+                        </div>
+                    )}
                     <div className="col-md-12">
                         <div className="card my-5">
                             <div className="card-body">
@@ -105,7 +94,7 @@ export default function JourneyForm({ id }) {
                                     <br /><strong>Nom:</strong> {train.nom}
                                 </p>
                                 <p className="card-text">
-                                    <br /><strong>Depart:</strong> {selectedDepart}
+                                    <br /><strong>Départ:</strong> {selectedDepart}
                                     <br /><strong>Destination:</strong> {selectedDestination}
                                 </p>
                                 <p className="card-text"><strong>Horaire:</strong>
@@ -125,10 +114,7 @@ export default function JourneyForm({ id }) {
                                                 const selectedCarriage = train.carriage.find(c => c.class_name === e.target.value);
                                                 if (selectedCarriage) {
                                                     handleClick(selectedCarriage);
-                                                    setError({
-                                                        ...error,
-                                                        canSubmit:true
-                                                    })
+                                                    setError({ ...error, canSubmit: true });
                                                 }
                                             }}
                                         >
@@ -143,19 +129,22 @@ export default function JourneyForm({ id }) {
                                     <div className="form-group">
                                         <p className="card-text"><strong>Prix : {carriageClass.prices?.[0]?.price || "N/A"}</strong> CDF</p>
                                     </div>
-                                    <input type="submit" className="btn btn-primary" value="Réserver" onClick={(event)=>{
-                                        handleSubmit(event)
-                                        console.log('clique')
-                                    }} />
-                                    {
-                                        error.errorSubmit && <p className="p-error">Selectionner une classe pour votre voyage</p>
-                                    }
+                                    <input type="submit" className="btn btn-primary" value="Réserver" onClick={handleSubmit} />
+                                    {error.errorSubmit && <p className="p-error">Sélectionner une classe pour votre voyage</p>}
                                 </form>
-                                
                             </div>
                         </div>
                     </div>
                 </div>
+
+                {/* Spinner d'attente */}
+                {loading && (
+                    <div className="spinner-overlay">
+                        <div className="spinner-border" role="status">
+                            <span className="visually-hidden">Chargement...</span>
+                        </div>
+                    </div>
+                )}
             </div>
         </>
     );

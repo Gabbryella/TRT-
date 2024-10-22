@@ -35,6 +35,10 @@ const ReservationList = () => {
             });
 
             const reservationsWithStations = await Promise.all(stationPromises);
+
+            // Trier les réservations du plus récent au plus ancien
+            reservationsWithStations.sort((a, b) => new Date(b.booking_date) - new Date(a.booking_date));
+
             setReservations(reservationsWithStations);
             setPagination({ next: response.data.next, previous: response.data.previous });
 
