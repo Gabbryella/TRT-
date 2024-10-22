@@ -62,3 +62,9 @@ footer {
   .footer-07 .ftco-footer-social li a {
     background: transparent;
  }
+.liste-train{
+  margin-top: 15em;
+}
+ #liste-vide p{
+  padding: 20px 60px;
+ }

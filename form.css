@@ -13,3 +13,10 @@ body {
 #reservationForm button{
     background-color: #29d9d5;
 }
+#selectPrice{
+    text-align: center;
+    height: 30px;
+    width: 50px;
+    color: #fff;
+    background-color: #29d9d5;
+}
