@@ -1,0 +1,19 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.profile-header img {
+    border-radius: 50%;
+    max-width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.profile-header #updateUsername, .profile-header label{
+    background-color: #29d9d5;
+    color: #fff;    
+}
+.profile-header label:hover, .profile-header #updateUsername:hover{
+    background-color: #26b3b0;
+    color: #fff;
+}
