@@ -3,7 +3,7 @@ import img from "../../assets/profile.png"
 import "./profile.css"
 import { AuthContext } from "../../context/AuthContext"
 import axios from "axios"
-import API_BASE_URL from "../../apiConfig";
+import {API_BASE_URL, config} from "../../apiConfig";
 
 export default function Profile (){
     const [isUpdate, setIsUpdate] = useState(false)
@@ -15,7 +15,8 @@ export default function Profile (){
         axios.post(`${API_BASE_URL}/user/`,{},{
             headers:{
                 'Authorization':`Token ${userToken}`,
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'ngrok-skip-browser-warning': 'true'
             }
         }).then(response =>setUser(response.data))
         
@@ -36,7 +37,7 @@ export default function Profile (){
         try {
             e.preventDefault()
         setIsUpdate(false)
-        axios.patch(`${API_BASE_URL}/passenger/${user.id}/`,user)
+        axios.patch(`${API_BASE_URL}/passenger/${user.id}/`,user, config)
         } catch (error) {
             console.log(error)
         }

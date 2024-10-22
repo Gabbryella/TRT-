@@ -2,7 +2,7 @@ import "./journey.css";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
-import API_BASE_URL from "../../apiConfig";
+import {API_BASE_URL, config} from "../../apiConfig";
 
 export default function JourneyForm({ id }) {
     const { selectedDepart, selectedDestination, getToken } = useContext(AuthContext);
@@ -19,13 +19,13 @@ export default function JourneyForm({ id }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const journeyResponse = await axios.get(`${API_BASE_URL}/journey/${id}`);
+                const journeyResponse = await axios.get(`${API_BASE_URL}/journey/${id}`, config);
                 setJourney(journeyResponse.data);
-                const trainResponse = await axios.get(`${API_BASE_URL}/train/${journeyResponse.data.train.train_id}`);
+                const trainResponse = await axios.get(`${API_BASE_URL}/train/${journeyResponse.data.train.train_id}`, config);
                 setTrain(trainResponse.data);
-                const DepartResponse = await axios.post(`${API_BASE_URL}/station/by_name/`, { "name": selectedDepart });
+                const DepartResponse = await axios.post(`${API_BASE_URL}/station/by_name/`, { "name": selectedDepart }, config);
                 setDepart(DepartResponse.data);
-                const DestinationResponse = await axios.post(`${API_BASE_URL}/station/by_name/`, { "name": selectedDestination });
+                const DestinationResponse = await axios.post(`${API_BASE_URL}/station/by_name/`, { "name": selectedDestination }, config);
                 setDestination(DestinationResponse.data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des données :", error);
@@ -53,7 +53,8 @@ export default function JourneyForm({ id }) {
             }, {
                 headers: {
                     'Authorization': `Token ${token}`,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'ngrok-skip-browser-warning': 'true'
                 }
             }).then((response) => {
                 if (response.status === 201) {

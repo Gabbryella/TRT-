@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
-import API_BASE_URL from "../../apiConfig"
+import {API_BASE_URL ,config}from "../../apiConfig"
 
 export default function Search({ setJourney }) {
   const [date, setDate] = useState('');
@@ -20,7 +20,7 @@ export default function Search({ setJourney }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`${API_BASE_URL}/station/`)
+    axios.get(`${API_BASE_URL}/station/`,config)
       .then((response) => {
         setStation(response.data.results);
       })
@@ -52,7 +52,7 @@ export default function Search({ setJourney }) {
         'depart': selectedDepart,
         'destination': selectedDestination,
         'date': date
-      })
+      },config)
       .then(function (response) {
         setJourney(response.data);
         if (Array.isArray(response.data) && response.data.length === 0) {

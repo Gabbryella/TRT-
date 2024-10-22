@@ -4,7 +4,7 @@ import "./style.css";
 import { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
-import API_BASE_URL from "../../apiConfig";
+import {API_BASE_URL, config} from "../../apiConfig";
 
 export default function SignUp() {
     const [credentiel, setCredentiel] = useState({
@@ -33,10 +33,10 @@ export default function SignUp() {
         
         try {
             // Étape 1 : Créer un passager
-            const passengerResponse = await axios.post(`${API_BASE_URL}/passenger/`, credentiel);
+            const passengerResponse = await axios.post(`${API_BASE_URL}/passenger/`, credentiel, config);
 
             // Étape 2 : Authentifier et obtenir le token
-            const tokenResponse = await axios.post(`${API_BASE_URL}/token/`, credentiel);
+            const tokenResponse = await axios.post(`${API_BASE_URL}/token/`, credentiel, config);
 
             // Connexion avec le token
             await login(tokenResponse.data.token);

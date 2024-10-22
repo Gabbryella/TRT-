@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
-import API_BASE_URL from "../../apiConfig";
+import {API_BASE_URL, config} from "../../apiConfig";
 import './reservation.css';
 
 const ReservationList = () => {
@@ -17,14 +17,15 @@ const ReservationList = () => {
             const token = getToken();
             const response = await axios.get(url || `${API_BASE_URL}/booking/`, {
                 headers: {
-                    'Authorization': `Token ${token}`
+                    'Authorization': `Token ${token}`,
+                    'ngrok-skip-browser-warning': 'true'
                 }
             });
 
             const stationPromises = response.data.results.map(async (reservation) => {
                 const [departResponse, destinationResponse] = await Promise.all([
-                    axios.get(`${API_BASE_URL}/station/${reservation.departure_station}/`),
-                    axios.get(`${API_BASE_URL}/station/${reservation.arrival_station}/`)
+                    axios.get(`${API_BASE_URL}/station/${reservation.departure_station}/`,config),
+                    axios.get(`${API_BASE_URL}/station/${reservation.arrival_station}/`,config)
                 ]);
 
                 return {
@@ -55,7 +56,8 @@ const ReservationList = () => {
         try {
             await axios.post(`${API_BASE_URL}/booking/${id}/handle_status/`, {}, {
                 headers: {
-                    'Authorization': `Token ${token}`
+                    'Authorization': `Token ${token}`,
+                    'ngrok-skip-browser-warning': 'true'
                 }
             });
             setReservations(prev => prev.filter(reservation => reservation.id !== id));

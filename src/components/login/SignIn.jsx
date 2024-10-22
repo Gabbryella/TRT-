@@ -4,7 +4,7 @@ import img from "../../assets/logo.png";
 import { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
-import API_BASE_URL from "../../apiConfig";
+import {API_BASE_URL, config} from "../../apiConfig";
 
 export default function SignIn() {
     const [credentiel, setCredentiel] = useState({
@@ -30,7 +30,7 @@ export default function SignIn() {
         try {
             const response = await axios.post(`${API_BASE_URL}/token/`, {
                 ...credentiel
-            });
+            }, config);
 
             await login(response.data.token);
 
