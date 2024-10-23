@@ -90,7 +90,12 @@ export default function JourneyForm({ id }) {
                 setLoading(false); // Masquer le spinner après la requête
             });
     }
-    useEffect(()=>{payment()},[idNewBooking])
+    useEffect(()=>{
+        if(idNewBooking){
+            payment()
+        }
+        
+    },[idNewBooking])
 
     return (
         <>
