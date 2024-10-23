@@ -24,6 +24,7 @@ export default function Header() {
                     <ul className="nav">
                        <Link to="/"><li>Home</li></Link>
                        <Link to="/booking"><li>Reservation</li></Link>
+                       <Link to="/payment"><li>Payment</li></Link>
                         <Link to="/contact"><li>Contact</li></Link>
                         <li className="btn-logout" onClick={logout}>Logout</li>
                         <Link to="/profile"><li className="fa fa-user"></li></Link>
@@ -38,7 +39,8 @@ export default function Header() {
                     <ul className="nav">
                         <Link to="/"><li>Home</li></Link>
                         <Link to="/booking"><li>Reservation</li></Link>
-                        <li>Contact</li>
+                        <Link to="/payment"><li>Payment</li></Link>
+                        <Link to="/contact"><li>Contact</li></Link>
                         <li onClick={logout}>Logout</li>
                         <Link to="/profile"><li className="fa fa-user"></li></Link>
                     </ul>

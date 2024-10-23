@@ -40,7 +40,7 @@ export default function Search({ setJourney }) {
           sameLocation: true,
           done: false
         }));
-        return; // Ne pas soumettre le formulaire
+        return; 
       } else {
         setError((prevError) => ({
           ...prevError,
@@ -121,7 +121,7 @@ export default function Search({ setJourney }) {
               value={date} onChange={(e) => setDate(e.target.value)} />
           </div>
           <div className="input-field fifth-wrap">
-            <input className="btn-search" type="submit" value="RECHERCHER" />
+            <input className="btn-search p-2" type="submit" value="RECHERCHER" />
           </div>
         </div>
         {error.done && <p className="p-error">Vous devez fournir votre départ et votre destination.</p>}
