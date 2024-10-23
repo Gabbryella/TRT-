@@ -93,6 +93,7 @@ export default function Search({ setJourney }) {
         <div className="inner-form">
           <div className="input-field first-wrap">
             <div className="icon-wrap">
+              {/* Icone SVG */}
             </div>
             <select id="depart" value={selectedDepart} onChange={handleChangeDepart}>
               <option value="">Départ</option>
@@ -103,6 +104,7 @@ export default function Search({ setJourney }) {
           </div>
           <div className="input-field first-wrap">
             <div className="icon-wrap">
+              {/* Icone SVG */}
             </div>
             <select id="destination" value={selectedDestination} onChange={handleChangeDestination}>
               <option value="">Destination</option>
@@ -113,12 +115,13 @@ export default function Search({ setJourney }) {
           </div>
           <div className="input-field second-wrap">
             <div className="icon-wrap">
+              {/* Icone SVG */}
             </div>
             <input className="datepicker" id="depart" type="date" 
               value={date} onChange={(e) => setDate(e.target.value)} />
           </div>
           <div className="input-field fifth-wrap">
-            <input className="btn-search" type="submit" value="RECHERCHER" />
+            <input className="btn-search p-2" type="submit" value="RECHERCHER" />
           </div>
         </div>
         {error.done && <p className="p-error">Vous devez fournir votre départ et votre destination.</p>}

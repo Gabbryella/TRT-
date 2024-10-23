@@ -3,11 +3,13 @@ import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import {API_BASE_URL, config} from "../../apiConfig";
 import './reservation.css';
+import Reservation from './reservation';
 
 const ReservationList = () => {
     const { getToken } = useContext(AuthContext);
     const [reservations, setReservations] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [loadingCancel, setLoadingCancel ] = useState(false)
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState(false);
     const [pagination, setPagination] = useState({ next: null, previous: null });
@@ -65,7 +67,7 @@ const ReservationList = () => {
         } catch (error) {
             console.error("Erreur lors de l'annulation de la réservation :", error);
             setError("Erreur lors de l'annulation de la réservation.");
-        }
+        }    
     };
 
     const loadMore = (url) => {
@@ -77,7 +79,7 @@ const ReservationList = () => {
     }, [getToken]);
 
     if (loading) {
-        return <div className="spinner-border text-primary" role="status">
+        return <div className="spinner-border text-primary d-flex justify-content-center h-100" role="status">
             <span className="visually-hidden">Loading...</span>
         </div>;
     }
@@ -108,38 +110,7 @@ const ReservationList = () => {
                     <div className="text-center">Aucune réservation trouvée.</div>
                 ) : (
                     reservations.map((reservation) => (
-                        <div key={reservation.id} className="col-md-4">
-                            <div className="card my-3">
-                                <div className="card-body">
-                                    <h5 className="card-title">Réservation N: {reservation.id}</h5>
-                                    <p className="card-text">
-                                        <strong>Passager:</strong> {reservation.passenger.first_name} ({reservation.passenger.email})
-                                        <br />
-                                        <strong>Statut:</strong> <span className={reservation.status.status_name === 'Confirmed' ? 'confirmed' : 'canceled'}>{reservation.status.status_name}</span>
-                                        <br />
-                                        <strong>Date de Réservation:</strong> {new Date(reservation.booking_date).toLocaleDateString()}
-                                        <br />
-                                        <strong>Départ:</strong> Station {reservation.depart}
-                                        <br />
-                                        <strong>Arrivée:</strong> Station {reservation.destination}
-                                        <br />
-                                        <strong>Classe:</strong> Classe {reservation.carriage_class}
-                                        <br />
-                                        <strong>Prix:</strong> {reservation.amount_paid} CDF
-                                        <br />
-                                        <strong>Numéro de Ticket:</strong> {reservation.ticket_number}
-                                        <br />
-                                        <strong>Numéro de Siège:</strong> {reservation.seat_number}
-                                    </p>
-                                    <button
-                                        className="btn btn-danger"
-                                        onClick={() => handleCancel(reservation.id)}
-                                    >
-                                        Annuler
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        <Reservation key={reservation.id}  reservation={reservation} handleCancel={handleCancel}/>
                     ))
                 )}
             </div>

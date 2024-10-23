@@ -109,7 +109,7 @@ export default function JourneyForm({ id }) {
                                         <label htmlFor="carriageClass">Classe :</label>
                                         <select
                                             value={carriageClass.class_name || ""}
-                                            className="form-control"
+                                            className="form-control m-2"
                                             id="carriageClass"
                                             onChange={(e) => {
                                                 const selectedCarriage = train.carriage.find(c => c.class_name === e.target.value);
@@ -128,7 +128,7 @@ export default function JourneyForm({ id }) {
                                         </select>
                                     </div>
                                     <div className="form-group">
-                                        <p className="card-text"><strong>Prix : {carriageClass.prices?.[0]?.price || "N/A"}</strong> CDF</p>
+                                        <p className="card-text m-3"><strong>Prix : {carriageClass.prices?.[0]?.price || "N/A"}</strong> CDF</p>
                                     </div>
                                     <input type="submit" className="btn btn-primary" value="Réserver" onClick={handleSubmit} />
                                     {error.errorSubmit && <p className="p-error">Sélectionner une classe pour votre voyage</p>}
