@@ -3,7 +3,7 @@ import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import { API_BASE_URL } from "../../apiConfig";
 
-const Payment = () => {
+export default function Payment (){
     const { getToken } = useContext(AuthContext);
     const [payments, setPayments] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -41,7 +41,7 @@ const Payment = () => {
 
     if (loading) {
         return (
-            <div className="spinner-border text-primary d-flex justify-content-center h-100" role="status">
+            <div className="spinner-border text-primary" role="status">
                 <span className="visually-hidden">Chargement...</span>
             </div>
         );
@@ -102,4 +102,3 @@ const Payment = () => {
     );
 };
 
-export default Payment;

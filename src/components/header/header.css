@@ -15,6 +15,11 @@ header a {
     display: flex; /* la liste fera un rang */
     align-items: center;
     justify-content: center;
+}
+.dropdown_menu .nav{
+    display: flex; /* la liste fera un rang */
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
 }
 
