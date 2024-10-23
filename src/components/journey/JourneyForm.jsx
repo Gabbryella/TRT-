@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import {API_BASE_URL, config} from "../../apiConfig";
+import {  useNavigate } from "react-router-dom";
 
 export default function JourneyForm({ id }) {
     const { selectedDepart, selectedDestination, getToken } = useContext(AuthContext);
@@ -12,9 +13,10 @@ export default function JourneyForm({ id }) {
     const [train, setTrain] = useState({});
     const [carriageClass, setCarriageClass] = useState({});
     const [error, setError] = useState({ canSubmit: false, errorSubmit: false });
-    const [successMessage, setSuccessMessage] = useState(false);
     const [loading, setLoading] = useState(false); // État pour le spinner
+    const [idNewBooking, setIdNewBooking] = useState(0)
     const token = getToken();
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -39,7 +41,7 @@ export default function JourneyForm({ id }) {
         setCarriageClass(carriage);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         if (error.canSubmit) {
             setLoading(true); // Afficher le spinner
@@ -58,34 +60,43 @@ export default function JourneyForm({ id }) {
                 }
             }).then((response) => {
                 if (response.status === 201) {
-                    console.log(response);
-                    setSuccessMessage(true);
-                    setTimeout(() => {
-                        setSuccessMessage(false);
-                    }, 10000);
+                     setIdNewBooking(response.data.id)
                 }
             }).catch((error) => {
                 console.error("Erreur lors de la réservation :", error);
                 setError({ ...error, errorSubmit: true });
-            }).finally(() => {
-                setLoading(false); // Masquer le spinner après la requête
-            });
+            })
         } else {
             setError({ ...error, errorSubmit: true });
         }
     };
+    const payment = () => {
+            axios.post(`${API_BASE_URL}/payment/`, {
+                "amount":carriageClass.prices?.[0]?.price,
+                "id_reservation":idNewBooking
+            }, {
+                headers: {
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application/json',
+                    'ngrok-skip-browser-warning': 'true'
+                }
+            }).then((response) => {
+                if (response.status === 200) {
+                    window.open(response.data.url, '_blank', 'noopener,noreferrer');
+                }
+            }).catch((error) => {
+                navigate('/decline')
+            }).finally(() => {
+                setLoading(false); // Masquer le spinner après la requête
+            });
+    }
+    useEffect(()=>{payment()},[idNewBooking])
 
     return (
         <>
             <div className="container mt-5">
                 <h1 className="text-center">Réservation de Tickets de Train</h1>
                 <div className="row">
-                    {successMessage && (
-                        <div className="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Félicitations</strong> Votre réservation a été faite
-                            <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={() => setSuccessMessage(false)}></button>
-                        </div>
-                    )}
                     <div className="col-md-12">
                         <div className="card my-5">
                             <div className="card-body">
@@ -130,7 +141,7 @@ export default function JourneyForm({ id }) {
                                     <div className="form-group">
                                         <p className="card-text m-3"><strong>Prix : {carriageClass.prices?.[0]?.price || "N/A"}</strong> CDF</p>
                                     </div>
-                                    <input type="submit" className="btn btn-primary" value="Réserver" onClick={handleSubmit} />
+                                    <input type="submit" className="btn btn-primary" value="Payer" onClick={handleSubmit} />
                                     {error.errorSubmit && <p className="p-error">Sélectionner une classe pour votre voyage</p>}
                                 </form>
                             </div>

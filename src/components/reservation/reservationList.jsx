@@ -79,7 +79,7 @@ const ReservationList = () => {
     }, [getToken]);
 
     if (loading) {
-        return <div className="spinner-border text-primary d-flex justify-content-center h-100" role="status">
+        return <div className="spinner-border text-primary " role="status">
             <span className="visually-hidden">Loading...</span>
         </div>;
     }
@@ -121,14 +121,14 @@ const ReservationList = () => {
                     onClick={() => loadMore(pagination.previous)} 
                     disabled={!pagination.previous}
                 >
-                    &laquo; Précédent
+                    <i className="fa-solid fa-chevron-left"></i> Précédent
                 </button>
                 <button 
                     className="btn btn-secondary" 
                     onClick={() => loadMore(pagination.next)} 
                     disabled={!pagination.next}
                 >
-                    Suivant &raquo;
+                    Suivant <i className="fa-solid fa-chevron-right"></i>
                 </button>
             </div>
         </div>

@@ -8,15 +8,17 @@ header{
 }
 header a {
     text-decoration: none;
+    list-style-type: none;
    
 }
 .nav{
     display: flex; /* la liste fera un rang */
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
-.nav li {
+.nav a li,.nav li {
     margin: 0 15px;
     list-style-type: none;
     color: #fff;
@@ -28,7 +30,7 @@ header a {
 }
 
 
-.nav li:hover {
+.nav  li:hover,.nav a li:hover {
     color:#29d9d5 ;
     cursor: pointer;
     padding-right: 7px;
@@ -76,8 +78,8 @@ header a {
     overflow: hidden;
     transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.dropdown_menu li{
-    padding: 0.7rem;
+.dropdown_menu li, .dropdown_menu a li{
+    padding: 0.7rem 0;
     font-weight: 400;
     color: #fff;
     font-size: 18px;
@@ -86,7 +88,8 @@ header a {
     align-items: center;
     letter-spacing: 1px;
     transition: all 0.3s ease;
-    width: 100%;
+    width: unset;
+    text-decoration: none;
 
 }
 .dropdown_menu li:hover {
