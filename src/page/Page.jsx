@@ -8,6 +8,7 @@ import Profile from "../components/profile/Profile"
 import Journey from "../components/journey/Journey"
 import ReservationList from "../components/reservation/reservationList"
 import ContactUs from "../components/contact/ContactsUs.jsx"
+import Paiement from "../components/paiement/paiement.jsx"
 
 export default function Page(){
     const router = createBrowserRouter([
@@ -28,6 +29,11 @@ export default function Page(){
                     path:"journey",
                     element:<Journey/>
                 },
+                {
+                    path:"paiement",
+                    element:<Paiement/>
+                }
+                ,
                 {
                     path:"booking",
                     element:<ReservationList/>

@@ -6,6 +6,9 @@ import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import {API_BASE_URL, config} from "../../apiConfig";
 
+
+
+
 export default function SignUp() {
     const [credentiel, setCredentiel] = useState({
         email: '',
